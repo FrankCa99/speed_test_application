@@ -2,7 +2,7 @@ int size_ratio = 75;
 float counter = 0;
 
 float time = 0;
-float distance = 3; // in centimeters
+float distance = 3; // in meters
 float speed = 0;
 Button run_button;
 Button reset_button;
@@ -72,6 +72,8 @@ void draw(){
       time = (counter / frameRate);
       speed = (distance / time);
       current_time.update_value(time);
+      
+      //if(time >= 2.99)inRange.update_state(false);
       
       current_speed_gauge.update_value(speed);
     }else counter = 0;
