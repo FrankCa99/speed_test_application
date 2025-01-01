@@ -3,7 +3,7 @@ class Button{
   private Label label;
   
   private int radius = 5; // corner radius
-  private int label_size = 18; // size of the font(hard coded?)
+  private int font_size = 18; // size of the font(hard coded?)
   private color background_color;
   private color label_text_color;
   private color disabled_state_color;
@@ -13,7 +13,7 @@ class Button{
   
   Button(PVector position_v, PVector size_v, String label_t, color[] color_arr){
     area = new Area2D(position_v, size_v); // interactive area
-    label = new Label(area, label_t, label_size, color_arr[1]); // make a new label with all its attributes
+    label = new Label(area, label_t, font_size, color_arr[1]); // make a new label with all its attributes
     background_color = color_arr[0]; // the background color
     label_text_color = color_arr[1];
     disabled_state_color = color_arr[2];
