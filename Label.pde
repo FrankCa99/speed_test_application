@@ -24,6 +24,9 @@ class Label{
   public void update_text(String new_label_t){ // update the text
     text_s = new_label_t;
   }
+  public void update_text(float new_label_t){ // update the text
+    update_text(str(Helper.round_to_nearest(new_label_t)));
+  }
   public void update_position(PVector position_v){ // update the corner position
     position = position_v;
   }

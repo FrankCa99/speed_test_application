@@ -1,4 +1,9 @@
 int size_ratio = 75;
+float counter = 0;
+
+float time = 0;
+float distance = 3; // in centimeters
+float speed = 0;
 Button run_button;
 Button reset_button;
 Button edit_button;
@@ -21,16 +26,16 @@ void setup(){
   edit_button = new Button(new PVector(CENTER_X + (size_ratio - (size_ratio*0.5)) + 10, 10), new PVector(size_ratio, size_ratio/2), "EDIT", orange_theme);
   
   current_speed_gauge = new Gauge("CURRENT SPEED", new PVector(CENTER_X - 110, height/8), 220, 50, red_theme);
-  max_speed_gauge = new Gauge("MAX SPEED", new PVector(CENTER_X - 80, height/2), 160, 50, green_theme);
+  max_speed_gauge = new Gauge("PREVIOUS SPEED", new PVector(CENTER_X - 80, height/2), 160, 50, green_theme);
   
   current_time = new Timer("CURRENT TIME", new PVector(CENTER_X - 50, 500), orange_theme);
   
-  inRange = new State("IN RANGE", new PVector(CENTER_X - 50, 450), new PVector(75, 50),  green_theme);
+  inRange = new State("IN RANGE", new PVector(CENTER_X - 34, 450), new PVector(75, 50),  green_theme);
 }
 void draw(){
   cursor(ARROW); // can be improve to prevent the pointer twitching
   background(background_color);
-  
+  //print(Helper.round_to_nearest(2.051050) + " | ");
   run_button.display();
   reset_button.display();
   edit_button.display();
@@ -59,10 +64,17 @@ void draw(){
     run_button.is_disabled = false;
     edit_button.is_disabled = true;
                                  //test
-    current_speed_gauge.update_value(int(map(mouseX, 0, width, 0, 51)));
-    max_speed_gauge.update_value(int(map(mouseY, 0, height, 0, 51)));
-    current_time.update_value(mouseX);
+    //current_speed_gauge.update_value(int(map(mouseX, 0, width, 0, 51)));
+    //max_speed_gauge.update_value(int(map(mouseY, 0, height, 0, 51)));
     inRange.update_state(inRange.is_toggle());
+    if(inRange.state_b){
+      counter ++;
+      time = (counter / frameRate);
+      speed = (distance / time);
+      current_time.update_value(time);
+      
+      current_speed_gauge.update_value(speed);
+    }else counter = 0;
     
   }else{
     // if none are active, set everything to normal
@@ -71,13 +83,13 @@ void draw(){
     reset_button.is_disabled = false;
     reset_button.is_active = false;
     
-    // if run and edit buttons are not active, and reset is clicked 
+    // if run and edit buttons are not active, and reset is clicked
     if(!(run_button.is_active || edit_button.is_active)){
       if(reset_button.is_clicked()){
         //reset all values but before, save everything
                     //test
+        max_speed_gauge.update_value(current_speed_gauge.get_value());
         current_speed_gauge.update_value(0);
-        max_speed_gauge.update_value(0);
         current_time.update_value(0);
         inRange.update_state(false);
         

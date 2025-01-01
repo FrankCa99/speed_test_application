@@ -6,7 +6,7 @@ class Timer{
   private int font_size = 16;
   private int size_offset = 20;
   
-  private int value = 0;
+  private float value = 0;
   
   Timer(String name_s, PVector position_v, color[] color_arr){
     area = new Area2D(position_v, new PVector(textWidth(name_s), font_size + size_offset * 2));
@@ -21,12 +21,12 @@ class Timer{
     value_l.update_position(new PVector(area.position.x, area.position.y + area.size.y - (font_size + size_offset)));
     name_l.update_position(area.position);
     
-    value_l.update_text(str(value) + " sec");
+    value_l.update_text((value));
     
     name_l.render();
     value_l.render();    
   }
-  public void update_value(int new_value_i){
+  public void update_value(float new_value_i){
     value = new_value_i;
   }
 }

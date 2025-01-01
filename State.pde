@@ -5,7 +5,7 @@ class State{
   private color base_color;
   private int font_size = 16;
   
-  private boolean state_b = false;
+  public boolean state_b = false;
   
   State(String name_s, PVector position_v, PVector size_v, color[] color_arr){
     area = new Area2D(position_v, size_v);

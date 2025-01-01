@@ -3,7 +3,8 @@ class Gauge{
   public Area2D area; // interactive area
   private Label current_value_label, min_value_label, max_value_label, name_label; // all the text utilized by this class
   
-  private int current_value, max_value, label_size = 48; // initial font sise. 
+  private float current_value = 0; // actual value the gauge that is displaying
+  private int max_value, label_size = 48; // initial font sise. 
   private color arc_color, reference_arc_color; // colors
   
   Gauge(String name_s, PVector position_v, int size_i, int max_i, color[] color_arr){
@@ -11,8 +12,7 @@ class Gauge{
     
     label_size = size_i / 4; // dynamic font size dependig on area
     
-    max_value = max_i; // max value the gauge can display being min value 0
-    current_value = max_value / 2; // actual value the gauge that is displaying
+    max_value = max_i; // max value the gauge can display being min value 0 
     
     current_value_label = new Label(area, str(current_value), label_size, color_arr[0]); // label for the current value
     min_value_label = new Label(area, str(0), label_size / 2, color_arr[0]); // label for the min value
@@ -53,7 +53,7 @@ class Gauge{
     max_value_label.update_position(new PVector(area.position.x + label_size*1.5, area.position.y + label_size));
     name_label.update_position(new PVector(area.position.x, area.position.y + label_size*1.5));
     
-    current_value_label.update_text(str(current_value)); // change the gauge label text to the actual gauge value
+    current_value_label.update_text(current_value); // change the gauge label text to the actual gauge value
     
     // display all the labels
     current_value_label.render();
@@ -65,7 +65,10 @@ class Gauge{
   public void update_position(PVector new_position_v){ // change the position of the gauge
     area.position = new_position_v;
   }
-  public void update_value(int new_value_i){ // update the gauge value
+  public void update_value(float new_value_i){ // update the gauge value
     current_value = new_value_i;
+  }
+  public float get_value(){
+    return current_value; 
   }
 }
