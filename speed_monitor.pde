@@ -1,9 +1,12 @@
+import processing.io.*;
+
 int size_ratio = 75;
 float counter = 0;
 
 float time = 0;
 float distance = 3; // in meters
 float speed = 0;
+
 Button run_button;
 Button reset_button;
 Button edit_button;
@@ -15,8 +18,15 @@ Timer current_time;
 
 State inRange;
 
+boolean sensor_state = false;
+
 void setup(){
             //default code, DO NOT EDIT!\\ 
+  GPIO.pinMode(SENSOR_A_PIN, GPIO.INPUT); // GPIO pin setup for SENSOR A
+  GPIO.pinMode(SENSOR_B_PIN, GPIO.INPUT); // GPIO pin setup for SENSOR B
+  GPIO.attachInterrupt(SENSOR_A_PIN, this, "start_timer", GPIO.RISING); // turn on timer when sensor a is active
+  GPIO.attachInterrupt(SENSOR_B_PIN, this, "stop_timer", GPIO.RISING); // turn off timer when sensor b is active
+  
   windowTitle(APPLICATION_NAME);
   textFont(createFont("fonts/Baloo2-Medium.ttf", DEFAULT_FONT_SIZE)); //NOTE: copy and past the "font" folder in the final application
   size(450, 580); // if this changing, make sure to also change it in the "Constants" tab
@@ -31,6 +41,7 @@ void setup(){
   current_time = new Timer("CURRENT TIME", new PVector(CENTER_X - 50, 500), orange_theme);
   
   inRange = new State("IN RANGE", new PVector(CENTER_X - 34, 450), new PVector(75, 50),  green_theme);
+  
 }
 void draw(){
   cursor(ARROW); // can be improve to prevent the pointer twitching
@@ -66,7 +77,8 @@ void draw(){
                                  //test
     //current_speed_gauge.update_value(int(map(mouseX, 0, width, 0, 51)));
     //max_speed_gauge.update_value(int(map(mouseY, 0, height, 0, 51)));
-    inRange.update_state(inRange.is_toggle());
+    inRange.update_state(sensor_state);
+    
     if(inRange.state_b){
       counter ++;
       time = (counter / frameRate);
@@ -98,4 +110,10 @@ void draw(){
       } else reset_button.is_active = reset_button.is_mouse_over();
     }
   }
+}
+void start_timer(int pin){
+  sensor_state = true;
+}
+void stop_timer(int pin){
+  sensor_state = false;
 }
