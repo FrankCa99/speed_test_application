@@ -18,10 +18,8 @@ Timer current_time;
 
 State inRange;
 
-boolean sensor_state = false;
-
 Serial port;
-byte[] data = new byte[2];
+boolean sensor_state = false;
 
 void setup(){
             //default code, DO NOT EDIT!\\ 
@@ -57,11 +55,7 @@ void draw(){
   
   inRange.display();
   
-  if(port.available() > 0){
-    port.readBytes(data);
-  }
-  sensor_state = boolean(data[0]);
-  text(data[0], 100, 100);
+
 
           //// handling events(can improve)\\\\
   if(edit_button.is_toggle() && !run_button.is_active){
@@ -82,6 +76,10 @@ void draw(){
                                  //test
     //current_speed_gauge.update_value(int(map(mouseX, 0, width, 0, 51)));
     //max_speed_gauge.update_value(int(map(mouseY, 0, height, 0, 51)));
+    while(port.available() > 0){
+      sensor_state = boolean(port.read());
+    }
+    
     inRange.update_state(sensor_state);
     
     if(inRange.state_b){
