@@ -1,4 +1,4 @@
-class Timer{
+class LabelDisplay{
   private Area2D area;
   private Label name_l;
   private Label value_l;
@@ -8,7 +8,7 @@ class Timer{
   
   private float value = 0;
   
-  Timer(String name_s, PVector position_v, color[] color_arr){
+  LabelDisplay(String name_s, PVector position_v, color[] color_arr){
     area = new Area2D(position_v, new PVector(textWidth(name_s), font_size + size_offset * 2));
     name_l = new Label(area, name_s, font_size, color_arr[0]);
     value_l = new Label(area, str(0) + " sec", font_size, color_arr[2]);

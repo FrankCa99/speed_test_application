@@ -10,7 +10,7 @@ class Label{
   Label(Area2D area_a, String label_s, int size_i, color color_c){
     update_position(area_a.position);
     
-    width_i = area_a.size.x; 
+    width_i = area_a.size.x;
     height_i = area_a.size.y;
     
     font_size = size_i;

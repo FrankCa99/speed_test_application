@@ -1,11 +1,16 @@
-#define SENSOR_A_PIN 2
-#define SENSOR_B_PIN 4
+#include <BluetoothSerial.h>
 
-boolean activated = false;
+#define SENSOR_A_PIN 12
+#define SENSOR_B_PIN 14
+
+BluetoothSerial SerialBt;
+
+bool activated = false;
+bool isRunning = false;
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(115200);
+  SerialBt.begin("Speed Monitor");
 
   pinMode(SENSOR_A_PIN, INPUT_PULLUP);
   pinMode(SENSOR_B_PIN, INPUT_PULLUP);
@@ -13,8 +18,11 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  if(!digitalRead(SENSOR_A_PIN)) activated = true;
-  else if(!digitalRead(SENSOR_B_PIN)) activated = false;
-  
-  Serial.write(activated);
+  if(SerialBt.available() > 0) isRunning = SerialBt.read();;
+  if(isRunning){
+    if(!digitalRead(SENSOR_A_PIN)) activated = true;
+    else if(!digitalRead(SENSOR_B_PIN)) activated = false;
+  }else activated = false;
+  SerialBt.write(activated);
+  delay(1);
 }
