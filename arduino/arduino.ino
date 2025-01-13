@@ -18,7 +18,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  if(SerialBt.available() > 0) isRunning = SerialBt.read();;
+  if(SerialBt.available() > 0) isRunning = SerialBt.read();
   if(isRunning){
     if(!digitalRead(SENSOR_A_PIN)) activated = true;
     else if(!digitalRead(SENSOR_B_PIN)) activated = false;

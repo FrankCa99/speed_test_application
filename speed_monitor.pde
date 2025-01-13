@@ -1,6 +1,5 @@
 import processing.serial.*;
 
-
 float counter = 0;
 
 float time = 0;
@@ -43,7 +42,8 @@ void setup(){
   inRange = new State("IN RANGE", new PVector(CENTER_X - 34, 450), new PVector(75, 50),  green_theme);
   
   // creates a port to read from the arduino
-  port = new Serial(this, Serial.list()[0], 115200);
+  //port = new Serial(this, Serial.list()[0], 115200);
+  port = new Serial(this, "COM6", 115200);
 }
 void draw(){
   cursor(ARROW); // can be improve to prevent the pointer twitching
