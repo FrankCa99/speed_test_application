@@ -43,7 +43,7 @@ void setup(){
   
   // creates a port to read from the arduino
   //port = new Serial(this, Serial.list()[0], 115200);
-  port = new Serial(this, "COM6", 115200);
+  port = new Serial(this, "COM3", 115200);
 }
 void draw(){
   cursor(ARROW); // can be improve to prevent the pointer twitching
