@@ -1,0 +1,9 @@
+follow this tutorial to auto start the processing sketch https://research.michaelday.org.uk/2015/05/20/autostart-a-processing-sketch-on-the-raspberry-pi/index.html
+useful commands:
+  sudo nano /etc/rc.local | to access the file and write the command to add
+  sudo chmod +x [path to file] | to treat file as an executable
+  @reboot [command to be executed] > [path to file for log purposes] 2>&1 | create a file to log the state of the booting state in case something goes wrong
+  @reboot /bin/sleep [time in seconds]; [command to execute] | delays the execution of the command on reboot
+
+I use the library matchbox-window-manager (processing sketches need a display and when rebooting display is not ready so trick processing to think theres a display)
+Again, follow the tutorial (read the instructions very careful)
